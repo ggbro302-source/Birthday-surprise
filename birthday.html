@@ -1,0 +1,711 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Sister, My Crime Partner 💜</title>
+
+<style>
+:root {
+  --pink: #ff3cac;
+  --purple: #9b5cff;
+  --gold: #ffd166;
+  --text: #f5eaff;
+  --muted: #c0b2d5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 15% 10%, #42116a 0%, transparent 42%),
+    radial-gradient(ellipse at 90% 80%, #57103f 0%, transparent 40%),
+    #090611;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 16px;
+  background: rgba(12, 7, 20, .94);
+  border-bottom: 1px solid #b34cff55;
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  color: #ff8bd5;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+#progressTrack {
+  width: 100%;
+  max-width: 360px;
+  height: 5px;
+  margin: 12px auto 0;
+  border-radius: 20px;
+  background: #30203f;
+  overflow: hidden;
+}
+
+#progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--pink), var(--purple));
+  transition: width .4s;
+}
+
+main {
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  padding: 25px 15px 60px;
+}
+
+.chapter {
+  display: none;
+  padding: 28px 20px;
+  margin: 18px 0;
+  background: linear-gradient(145deg, rgba(42,24,61,.96), rgba(17,11,29,.97));
+  border: 1px solid #b34cff55;
+  border-radius: 24px;
+  box-shadow: 0 0 35px #a020f015;
+  animation: appear .5s ease;
+}
+
+.chapter.active { display: block; }
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  color: #d5a8ff;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+h1 {
+  color: #ff83d0;
+  font-size: clamp(30px, 7vw, 48px);
+  line-height: 1.12;
+  text-shadow: 0 0 22px #ff3cac50;
+}
+
+h2 {
+  color: #d6a8ff;
+  font-size: clamp(23px, 5vw, 32px);
+}
+
+h3 { color: #ff9bdd; }
+
+p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.bigEmoji {
+  font-size: 65px;
+  margin: 15px 0;
+}
+
+button {
+  border: 0;
+  border-radius: 14px;
+  padding: 13px 20px;
+  margin: 7px 4px;
+  background: linear-gradient(135deg, #ff3cac, #8b5cf6);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 22px #a020f030;
+  transition: transform .2s, filter .2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
+
+button:active { transform: scale(.97); }
+
+button.secondary {
+  background: #241533;
+  border: 1px solid #b34cff70;
+  box-shadow: none;
+}
+
+#yesBtn { position: relative; }
+
+.quiz-option {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  text-align: left;
+  color: var(--text);
+  background: #170e25;
+  border: 1px solid #8b5cf655;
+  box-shadow: none;
+}
+
+.quiz-option:hover {
+  border-color: var(--pink);
+  background: #29123a;
+}
+
+#quizFeedback {
+  min-height: 28px;
+  color: #ff9bdd;
+  font-weight: bold;
+}
+
+.envelope {
+  font-size: 90px;
+  cursor: pointer;
+  transition: transform .3s;
+}
+
+.envelope:hover { transform: scale(1.08) rotate(-3deg); }
+
+.letter {
+  display: none;
+  text-align: left;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 15px;
+  border: 1px solid #ff3cac70;
+  background: #160e21;
+  line-height: 1.9;
+  color: #f5eaff;
+}
+
+.cake {
+  font-size: 100px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 12px;
+}
+
+.candle {
+  display: inline-block;
+  font-size: 35px;
+  margin: 5px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.candle.off {
+  opacity: .35;
+  filter: grayscale(1);
+}
+
+#secretHeart {
+  font-size: 65px;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .15s;
+}
+
+#secretHeart:active { transform: scale(1.3); }
+
+.gift {
+  font-size: 95px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+#giftMessage, #giftExtra { display: none; }
+
+.finalCard {
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid #ff3cac75;
+  background: linear-gradient(135deg, #271039, #190d27);
+}
+
+footer {
+  padding: 25px;
+  font-size: 12px;
+  color: #9483aa;
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@media (max-width: 420px) {
+  .chapter { padding: 24px 15px; }
+  button { padding: 12px 15px; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="confetti"></canvas>
+
+<header>
+  <div class="brand">💜 SISTER & CRIME PARTNER 💜</div>
+  <div id="progressTrack"><div id="progress"></div></div>
+</header>
+
+<main>
+
+  <!-- CHAPTER 1: INTRO -->
+  <section class="chapter active" id="chapter1">
+    <div class="eyebrow">A top-secret birthday mission</div>
+    <div class="bigEmoji">🔐</div>
+    <h1>Access Granted?</h1>
+    <p>Preparing something special for my favourite troublemaker...</p>
+    <h2 id="loadingText">Loading memories... 0%</h2>
+    <button id="startBtn" onclick="showChapter(2)" style="display:none">
+      Enter the chaos 💜
+    </button>
+  </section>
+
+  <!-- CHAPTER 2: RUNAWAY BUTTON -->
+  <section class="chapter" id="chapter2">
+    <div class="eyebrow">Security question</div>
+    <div class="bigEmoji">😎</div>
+    <h1>Do you think you're cute?</h1>
+    <p>Choose wisely. Your answer will be judged forever.</p>
+    <button id="yesBtn">Yes, obviously 🙄</button>
+    <button id="noBtn" class="secondary">No</button>
+    <p id="runawayMessage"></p>
+  </section>
+
+  <!-- CHAPTER 3: SIBLING QUIZ -->
+  <section class="chapter" id="chapter3">
+    <div class="eyebrow">Sibling compatibility test</div>
+    <h1>How well do you know us? 👀</h1>
+    <p>Let's test our legendary sibling bond.</p>
+    <h3 id="questionNumber">Question 1</h3>
+    <h2 id="questionText"></h2>
+    <div id="quizOptions"></div>
+    <p id="quizFeedback"></p>
+
+    <button id="nextQuestion" onclick="nextQuestion()" style="display:none">
+      Next question ➜
+    </button>
+    <button id="quizContinue" onclick="showChapter(4)" style="display:none">
+      I survived the test 😂
+    </button>
+  </section>
+
+  <!-- CHAPTER 4: LETTER -->
+  <section class="chapter" id="chapter4">
+    <div class="eyebrow">A message from the heart</div>
+    <h1>One little letter 💌</h1>
+    <p>Tap the envelope to open your letter.</p>
+    <div class="envelope" onclick="revealLetter()">💌</div>
+
+    <div class="letter" id="letter">
+      <h2>To my sister & crime partner 💜</h2>
+      Happy Birthday! 🎂
+
+      <p>
+        Life would be seriously boring without you. Thank you for being my
+        partner in random nonsense, silly arguments, laughter, and unforgettable
+        memories.
+      </p>
+
+      <p>
+        We may annoy each other, fight over the smallest things, and pretend
+        we're not talking sometimes — but at the end of the day, you're family,
+        and I've always got your back.
+      </p>
+
+      <p>
+        I hope your new year brings you happiness, success, peace, and all the
+        beautiful things you deserve. Never stop being your wonderfully chaotic
+        self.
+      </p>
+
+      <p><strong>Happy Birthday, crime partner. Love you always! 💜✨</strong></p>
+      <p>— Your forever partner in crime 🕵️</p>
+    </div>
+
+    <button onclick="showChapter(5)">Continue ➜</button>
+  </section>
+
+  <!-- CHAPTER 5: CAKE -->
+  <section class="chapter" id="chapter5">
+    <div class="eyebrow">Birthday ritual</div>
+    <h1>Make a wish! 🎂</h1>
+    <div class="cake" onclick="blowCandles()">🎂</div>
+    <p>Tap every candle to blow it out.</p>
+
+    <div id="candles">
+      <span class="candle" onclick="blowOne(this)">🕯️</span>
+      <span class="candle" onclick="blowOne(this)">🕯️</span>
+      <span class="candle" onclick="blowOne(this)">🕯️</span>
+      <span class="candle" onclick="blowOne(this)">🕯️</span>
+      <span class="candle" onclick="blowOne(this)">🕯️</span>
+    </div>
+
+    <h2 id="wishMessage"></h2>
+    <button id="cakeNext" onclick="showChapter(6)" style="display:none">
+      Wish sent to the universe ✨
+    </button>
+  </section>
+
+  <!-- CHAPTER 6: SECRET HEART -->
+  <section class="chapter" id="chapter6">
+    <div class="eyebrow">Secret level unlocked</div>
+    <h1>Something is hidden here...</h1>
+    <p>Tap the heart five times to unlock your secret message.</p>
+    <div id="secretHeart" onclick="tapHeart()">💜</div>
+    <h2 id="heartMessage"></h2>
+
+    <button id="heartNext" onclick="showChapter(7)" style="display:none">
+      Claim your gift 🎁
+    </button>
+  </section>
+
+  <!-- CHAPTER 7: GIFT -->
+  <section class="chapter" id="chapter7">
+    <div class="eyebrow">Your birthday reward</div>
+    <h1>A little something for you 🎁</h1>
+    <p>After all that hard work, you deserve a reward.</p>
+    <div class="gift" onclick="openGift()">🎁</div>
+
+    <h2 id="giftMessage">
+      Your real gift is having the world's most annoying but loyal
+      crime partner. 😂💜
+    </h2>
+
+    <p id="giftExtra">
+      Just kidding! You deserve all the happiness in the world.
+      May your dreams come true, one by one. ✨
+    </p>
+
+    <button id="giftNext" onclick="showChapter(8)" style="display:none">
+      Final surprise ➜
+    </button>
+  </section>
+
+  <!-- CHAPTER 8: FINALE -->
+  <section class="chapter" id="chapter8">
+    <div class="eyebrow">Mission completed</div>
+    <div class="bigEmoji">🎉💜🎂</div>
+
+    <div class="finalCard">
+      <h1>HAPPY BIRTHDAY!</h1>
+      <h2 id="finalName">To my favourite crime partner 💜</h2>
+      <p>Another year older, wiser... and somehow still annoying. 😂</p>
+      <p>
+        Keep smiling, keep shining, and remember: no matter what happens,
+        your sibling will always be in your corner.
+      </p>
+      <h2>Forever partners in crime. ♾️</h2>
+    </div>
+
+    <button onclick="celebrate()">Celebrate again 🎊</button>
+    <button class="secondary" onclick="restart()">Replay the mission ↻</button>
+  </section>
+
+</main>
+
+<footer>
+  Made with 💜 for the best sister & crime partner.
+  <br>Warning: excessive sibling chaos may occur.
+</footer>
+
+<script>
+/* PERSONALIZE YOUR SISTER'S NAME */
+const sisterName = "My Sister";
+
+document.getElementById("finalName").textContent =
+  "To " + sisterName + ", my favourite crime partner 💜";
+
+/* INTRO LOADING */
+let load = 0;
+
+const loadingTimer = setInterval(() => {
+  load += 5;
+
+  document.getElementById("loadingText").textContent =
+    "Loading memories... " + Math.min(load, 100) + "%";
+
+  if (load >= 100) {
+    clearInterval(loadingTimer);
+    document.getElementById("loadingText").textContent =
+      "Mission ready. Let's go! 💜";
+    document.getElementById("startBtn").style.display = "inline-block";
+    celebrate();
+  }
+}, 80);
+
+/* CHAPTER NAVIGATION: 8 CHAPTERS */
+function showChapter(number) {
+  document.querySelectorAll(".chapter").forEach(chapter => {
+    chapter.classList.remove("active");
+  });
+
+  document.getElementById("chapter" + number).classList.add("active");
+
+  document.getElementById("progress").style.width =
+    ((number - 1) / 7 * 100) + "%";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
+  if (number === 8) celebrate();
+}
+
+/* RUNAWAY YES BUTTON */
+const yesBtn = document.getElementById("yesBtn");
+const runawayMessage = document.getElementById("runawayMessage");
+
+function moveYesButton() {
+  yesBtn.style.transform =
+    "translate(" + (Math.random() * 120 - 60) + "px," +
+    (Math.random() * 70 - 35) + "px)";
+
+  runawayMessage.textContent =
+    "Nice try! You can't catch this button 😂";
+}
+
+yesBtn.addEventListener("mouseenter", moveYesButton);
+yesBtn.addEventListener("click", moveYesButton);
+
+yesBtn.addEventListener("touchstart", event => {
+  event.preventDefault();
+  moveYesButton();
+}, { passive: false });
+
+document.getElementById("noBtn").addEventListener("click", () => {
+  runawayMessage.textContent =
+    "Correct answer! Humility level: questionable 😂";
+
+  setTimeout(() => showChapter(3), 900);
+});
+
+/* SIBLING QUIZ */
+const quizQuestions = [
+  {
+    q: "Who is more dramatic?",
+    options: ["Me 😎", "You 😂", "Both of us 💀"],
+    answer: 2,
+    feedback: "Correct! Two drama legends under one roof."
+  },
+  {
+    q: "Who starts fights and then acts innocent?",
+    options: ["Me 👀", "You 🙄", "We both do 😭"],
+    answer: 2,
+    feedback: "A perfect team of professional troublemakers."
+  },
+  {
+    q: "If we had a secret mission, what would happen?",
+    options: [
+      "We'd complete it perfectly 🕵️",
+      "We'd start laughing 😂",
+      "We'd forget the mission 💀"
+    ],
+    answer: 1,
+    feedback: "We'd definitely get caught laughing."
+  },
+  {
+    q: "What is our most important sibling rule?",
+    options: [
+      "Never share snacks 🍟",
+      "Always have each other's backs 💜",
+      "Never stop arguing 😂"
+    ],
+    answer: 1,
+    feedback: "Exactly! Always family, always a team. 💜"
+  }
+];
+
+let currentQuestion = 0;
+
+function renderQuestion() {
+  const question = quizQuestions[currentQuestion];
+
+  document.getElementById("questionNumber").textContent =
+    "Question " + (currentQuestion + 1) + " of " + quizQuestions.length;
+
+  document.getElementById("questionText").textContent = question.q;
+  document.getElementById("quizFeedback").textContent = "";
+  document.getElementById("nextQuestion").style.display = "none";
+  document.getElementById("quizContinue").style.display = "none";
+
+  const optionsContainer = document.getElementById("quizOptions");
+  optionsContainer.innerHTML = "";
+
+  question.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.className = "quiz-option";
+    button.textContent = option;
+
+    button.onclick = () => {
+      optionsContainer.querySelectorAll("button").forEach(btn => {
+        btn.disabled = true;
+        btn.style.opacity = ".65";
+      });
+
+      button.style.borderColor = "#ff3cac";
+      button.style.opacity = "1";
+
+      document.getElementById("quizFeedback").textContent =
+        index === question.answer
+          ? question.feedback
+          : "Interesting answer! But you know we're both guilty. 😂";
+
+      celebrate();
+
+      if (currentQuestion < quizQuestions.length - 1) {
+        document.getElementById("nextQuestion").style.display = "inline-block";
+      } else {
+        document.getElementById("quizContinue").style.display = "inline-block";
+      }
+    };
+
+    optionsContainer.appendChild(button);
+  });
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  renderQuestion();
+}
+
+renderQuestion();
+
+/* LETTER REVEAL */
+function revealLetter() {
+  document.getElementById("letter").style.display = "block";
+  celebrate();
+}
+
+/* CAKE CANDLES */
+let candlesOut = 0;
+
+function blowOne(candle) {
+  if (candle.classList.contains("off")) return;
+
+  candle.classList.add("off");
+  candle.textContent = "💨";
+  candlesOut++;
+
+  if (candlesOut >= 5) {
+    document.getElementById("wishMessage").textContent =
+      "Your wish is on its way! ✨💜";
+
+    document.getElementById("cakeNext").style.display = "inline-block";
+    celebrate();
+  }
+}
+
+function blowCandles() {
+  document.querySelectorAll(".candle").forEach(candle => {
+    blowOne(candle);
+  });
+}
+
+/* SECRET HEART */
+let heartTaps = 0;
+
+function tapHeart() {
+  if (heartTaps >= 5) return;
+
+  heartTaps++;
+
+  const heart = document.getElementById("secretHeart");
+  heart.style.transform = "scale(" + (1 + heartTaps * .06) + ")";
+
+  if (heartTaps >= 5) {
+    document.getElementById("heartMessage").textContent =
+      "SECRET UNLOCKED: You're loved more than you know. 💜✨";
+
+    document.getElementById("heartNext").style.display = "inline-block";
+    celebrate();
+  } else {
+    document.getElementById("heartMessage").textContent =
+      "Keep tapping... " + heartTaps + "/5 💜";
+  }
+}
+
+/* GIFT */
+function openGift() {
+  document.querySelector(".gift").textContent = "🎉";
+  document.getElementById("giftMessage").style.display = "block";
+  document.getElementById("giftExtra").style.display = "block";
+  document.getElementById("giftNext").style.display = "inline-block";
+  celebrate();
+}
+
+/* CONFETTI */
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function celebrate() {
+  for (let i = 0; i < 110; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -20 - Math.random() * canvas.height * .4,
+      size: Math.random() * 6 + 3,
+      speed: Math.random() * 3 + 1.5,
+      drift: Math.random() * 3 - 1.5,
+      rotation: Math.random() * 6,
+      color: ["#ff3cac", "#9b5cff", "#ffd166", "#ffffff"][
+        Math.floor(Math.random() * 4)
+      ]
+    });
+  }
+}
+
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.y += p.speed;
+    p.x += p.drift;
+    p.rotation += .04;
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rotation);
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+    ctx.restore();
+  });
+
+  particles = particles.filter(p => p.y < canvas.height + 30);
+  requestAnimationFrame(animateConfetti);
+}
+
+animateConfetti();
+
+/* RESTART */
+function restart() {
+  location.reload();
+}
+</script>
+
+</body>
+</html>
